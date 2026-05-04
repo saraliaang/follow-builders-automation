@@ -1,0 +1,39 @@
+name: Weekly AI Builder Digest Email
+
+on:
+  schedule:
+    # Every Monday at 9:00 AM Perth time
+    # Perth is UTC+8, so 8:00 AM Perth = 00:00 UTC
+    - cron: "0 0 * * 1"
+
+  workflow_dispatch:
+
+jobs:
+  send-weekly-digest:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: scripts
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: scripts/package-lock.json
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Generate and send digest
+        run: npm run weekly-digest-email
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_MODEL: ${{ secrets.OPENAI_MODEL }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          TO_EMAIL: ${{ secrets.TO_EMAIL }}

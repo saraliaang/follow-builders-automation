@@ -5,10 +5,14 @@
   "type": "module",
   "scripts": {
     "generate-feed": "node generate-feed.js",
-    "prepare-digest": "node prepare-digest.js"
+    "prepare-digest": "node prepare-digest.js",
+    "weekly-digest-email": "node prepare-digest.js > digest-raw.json && node summarize-digest.js digest-raw.json weekly-ai-builder-digest.md && node send-email.js weekly-ai-builder-digest.md"
   },
   "dependencies": {
     "dotenv": "^16.4.0",
-    "proper-lockfile": "^4.1.0"
+    "marked": "^18.0.3",
+    "openai": "^6.35.0",
+    "proper-lockfile": "^4.1.0",
+    "resend": "^6.12.2"
   }
 }
