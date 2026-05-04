@@ -38,6 +38,7 @@ Style:
 - Explain technical ideas simply.
 - Prioritize AI agents, coding tools, product thinking, model updates, and career-relevant insights.
 - Synthesize themes instead of listing posts one by one.
+- Do not put links under each builder update.
 
 Raw JSON:
 ${JSON.stringify(feed)}
